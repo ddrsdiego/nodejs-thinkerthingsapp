@@ -1,26 +1,16 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const Mediator = require('mediator-js').Mediator,
+    mediator = new Mediator();
 const firstContactRepository = require('../repositories/first-contact-repository');
+const registerFirstContactHandler = require('../handlres/first-contact/register-first-contact-handler');
 
 exports.registerFirstContact = async(req, res, next) => {
-    try {
-        req.body
-        await firstContactRepository
-            .registerFirstContact({
-                name: req.body.name,
-                email: req.body.email,
-                phoneNumberContact: req.body.phoneNumberContact,
-                protocolNumber: '201709301415'
-            });
-        res.status(201).send({
-            protocolNumber: '201709301415'
-        });
-    } catch (error) {
-        res.status(500).send({
-            error: error
-        });
-    }
+    mediator.publish("registerFirstContact", req.body);
+    await mediator.subscribe("registerFirstContact", (command) => {
+        registerFirstContactHandler.registerFirstContact(command);
+    });
 };
 
 exports.getFirstContactByEmail = async(req, res, next) => {

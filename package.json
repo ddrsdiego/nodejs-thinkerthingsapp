@@ -17,6 +17,7 @@
     "http": "0.0.0",
     "jsonwebtoken": "^8.0.1",
     "md5": "^2.2.1",
+    "mediator-js": "^0.9.9",
     "mongoose": "^4.11.13"
   },
   "devDependencies": {

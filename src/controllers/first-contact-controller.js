@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const firstContactRepository = require('../repositories/first-contact/first-contact-repository');
+const firstContactRepository = require('../repositories/first-contact-repository');
 
 exports.registerFirstContact = async(req, res, next) => {
     try {

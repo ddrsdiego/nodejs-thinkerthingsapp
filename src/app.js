@@ -7,13 +7,23 @@ const mongoose = require('mongoose');
 const app = express();
 const router = express.Router();
 
+mongoose.connect('mongodb://admin:admin@ds040167.mlab.com:40167/thinker-things-db', {
+    useMongoClient: true
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-const indexRoute = require('../src/routes/index-route');
+//Models
+const firstContact = require('../src/models/first-contact/first-contact');
 
-app.use('/', indexRoute);
+//Routes
+const indexRoute = require('../src/routes/index-route');
+const firstContactRoute = require('../src/routes/first-contact-route');
+
+app.use('/v1/', indexRoute);
+app.use('/v1/first-contacts', firstContactRoute);
 
 module.exports = app;
